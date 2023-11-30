@@ -27,8 +27,12 @@ export default class UIManager extends cc.Component {
         this.initLevelInfoPanel()
     }
 
+    /**
+     * 点击开始游戏跳转到这里
+     */
     gameStart() {
-        this.showUI([UIType.ControlPanel])
+        // 跳转到开始页面显示的东西，一个是控制面板，一个是得分
+        this.showUI([UIType.ControlPanel, UIType.LevelInfo])
         StaticInstance.gameManager.gameStart()
         console.log("gamestart")
     }

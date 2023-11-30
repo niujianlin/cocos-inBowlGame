@@ -10,6 +10,8 @@ export default class LevelInfo extends UIBase {
 
     onLoad () {
         super.onLoad()
+        console.log("执行onloadmei")
+
     }
 
     setLevelLabel(level: number) {
