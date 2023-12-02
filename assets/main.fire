@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        720.533135948653,
+        802.8055493081747,
         0,
         0,
         0,
@@ -495,7 +495,7 @@
       "__id__": 8
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 11
@@ -871,7 +871,7 @@
       "__id__": 15
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 17
@@ -976,6 +976,12 @@
     },
     "levelInfoPrefab": {
       "__uuid__": "82abf717-e8e9-4a5c-a6c4-457426c678b0"
+    },
+    "winPanelPrefab": {
+      "__uuid__": "3d85a14f-bd71-456b-b912-4cd015d43c82"
+    },
+    "losePanelPrefab": {
+      "__uuid__": "d995ebea-147f-41c4-8727-19885bda86c7"
     },
     "_id": "01FH7ewmZHbYCmyMjIo61V"
   },

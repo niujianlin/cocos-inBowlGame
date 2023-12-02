@@ -3,8 +3,10 @@ import { StaticInstance } from "./StaticInstance";
 import ControlPanel from "./ui/ControlPanel";
 import LevelInfo from "./ui/LevelInfo";
 import LevelSelect from "./ui/LevelSelect";
+import LosePanel from "./ui/LosePanel";
 import StartMenu from "./ui/StartMenu";
 import UIBase from "./ui/UIBase";
+import WinPanel from "./ui/WinPanel";
 
 const {ccclass, property} = cc._decorator;
 
@@ -15,6 +17,8 @@ export default class UIManager extends cc.Component {
     @property(cc.Prefab) levelSelectPrefab: cc.Prefab = undefined
     @property(cc.Prefab) controlPanelPrefab: cc.Prefab = undefined
     @property(cc.Prefab) levelInfoPrefab: cc.Prefab = undefined
+    @property(cc.Prefab) winPanelPrefab: cc.Prefab = undefined
+    @property(cc.Prefab) losePanelPrefab: cc.Prefab = undefined
 
     private uiMap = new Map<UIType, UIBase>()
 
@@ -25,6 +29,11 @@ export default class UIManager extends cc.Component {
         this.initLevelSelect()
         this.initControlPanel()
         this.initLevelInfoPanel()
+        this.initWinPanel()
+        this.initLosePanel()
+
+        // loading
+        this.node.children[0].destroy()
     }
 
     /**
@@ -50,7 +59,15 @@ export default class UIManager extends cc.Component {
         const levelInfo = this.uiMap.get(UIType.LevelInfo) as LevelInfo
         levelInfo.setLevelLabel(level)
         levelInfo.setItemsLabel(nowItem, allNum)
-        
+
+    }
+
+    showWinPanel() {
+        this.showUI([UIType.WinPanel])
+    }
+
+    showLosePanel() {
+        this.showUI([UIType.LosePanel])
     }
 
     showUI(showTypes: UIType[]) {
@@ -61,6 +78,22 @@ export default class UIManager extends cc.Component {
                 ui.hide()
             }
         })
+    }
+
+    onClickNextLevel() {
+        StaticInstance.gameManager.onClickNextLevel()
+    }
+
+    onClickPlayAgain() {
+        StaticInstance.gameManager.onClickPlayAgain()
+    }
+
+    onClickBackToStartMenu() {
+        const gameMgr = StaticInstance.gameManager
+        gameMgr.foods.removeAllChildren()
+        gameMgr.hideBowl()
+
+        this.showUI([UIType.StartMenu])
     }
 
     onRotateFood(angle: number) {
@@ -117,8 +150,28 @@ export default class UIManager extends cc.Component {
         node.setPosition(0, 0)
         const comp = node.getComponent(LevelInfo)
         this.uiMap.set(UIType.LevelInfo, comp)
-
     }
+
+    private initWinPanel() {
+        const node = cc.instantiate(this.winPanelPrefab)
+        this.node.addChild(node)
+        node.setPosition(0, 0)
+        const comp = node.getComponent(WinPanel)
+        comp.init(this)
+        this.uiMap.set(UIType.WinPanel, comp)
+    }
+
+    private initLosePanel() {
+        const node = cc.instantiate(this.losePanelPrefab)
+        this.node.addChild(node)
+        node.setPosition(0, 0)
+        const comp = node.getComponent(LosePanel)
+        comp.init(this)
+        this.uiMap.set(UIType.LosePanel, comp)
+    }
+
+
+
 
     // update (dt) {}
 }

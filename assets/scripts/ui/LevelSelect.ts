@@ -1,4 +1,5 @@
 import UIManager from "../UIManager";
+import { DataStorage } from "../utils/DataStorage";
 import { Util } from "../utils/Util";
 import UIBase from "./UIBase";
 
@@ -17,14 +18,14 @@ export default class LevelSelect extends UIBase {
 
     show() {
         super.show()
+        const unLockLevel = DataStorage.getUnLockLevel()  // 本地存储放着解锁几关
+        const maxLevel = DataStorage.getMaxLevel()       // 本地存储着一共几关，默认6
         this.levelsRoot.children.forEach((node, index) => {
             const labelNode = node.children[1]
             const labelComp = labelNode.getComponent(cc.Label)
             const level = index + 1
             // 假设解锁前三关
-            labelComp.string = level <= 3 ? '已解锁': '未解锁'
-
-
+            labelComp.string = level <= unLockLevel ? '已解锁': '未解锁'
         })
     }
 
@@ -61,17 +62,17 @@ export default class LevelSelect extends UIBase {
             button.on(TOUCH_END, () => {
                 Util.clickUpTween(button, () => {
                     const level = index + 1
-                    //console.log(level)
-                    // 关卡输入
-                    uiManager.gameStart(level)
+                    const unLockLevel = DataStorage.getUnLockLevel()
+                    if(level <= unLockLevel) {
+                        uiManager.gameStart(level)
+                    }
+                    
                 })
             }, this)
 
             button.on(TOUCH_CANCEL, () => {Util.clickUpTween(button)}, this)
-
         
+        })
+
     }
-
-
-
 }

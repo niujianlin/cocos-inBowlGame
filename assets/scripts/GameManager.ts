@@ -1,6 +1,8 @@
 import { StaticInstance } from "./StaticInstance";
 import { PhyManager } from "./utils/PhyManager";
 import GameConfig from "./config/GameConfig";
+import { DataStorage } from "./utils/DataStorage";
+import { MusicManager } from "./MusicManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -91,7 +93,7 @@ export default class GameManager extends cc.Component {
         PhyManager.openPhysicsSystem()
         // 打印下GameConfig
         console.log("关卡信息：", GameConfig)
-
+        MusicManager.getInstance().playBGM()
     }
 
     hideBowl() {
@@ -125,6 +127,27 @@ export default class GameManager extends cc.Component {
         // 游戏开始，可以进行失误速度为零的检测
         this.isPlaying = true
 
+    }
+
+    onClickNextLevel() {
+        // 先都销毁掉食物
+        this.clearAllFood()
+
+        // 到下一关
+        this.midConfig.level += 1
+        StaticInstance.uimanager.gameStart(this.midConfig.level)
+    }
+
+    onClickPlayAgain() {
+        // 先都销毁掉食物
+        this.clearAllFood()
+
+        // 重新开始
+        StaticInstance.uimanager.gameStart(this.midConfig.level)
+    }
+
+    clearAllFood() {
+        this.foods.removeAllChildren()
     }
 
     addFood(index: number) {
@@ -202,7 +225,13 @@ export default class GameManager extends cc.Component {
         // 能否添加食物
         if(!this.canAddFood) {
             this.isPlaying = false
+            // 胜利面板
+            StaticInstance.uimanager.showWinPanel()
+            if( DataStorage.getUnLockLevel() < this.midConfig.level + 1 ) {
+                DataStorage.setUnLockLevel(this.midConfig.level + 1)
+            }
             console.log(`游戏胜利`)
+            MusicManager.getInstance().playWinEffect()
             return 
         }
         // 都停下就新建食物
@@ -219,9 +248,15 @@ export default class GameManager extends cc.Component {
                 break
             }
         }
+        // 如果有落下去的，游戏失败
         if(hasFall) {
             this.isPlaying = false
-            console.log(`gameLoss!`)
+            // 失败面板
+            StaticInstance.uimanager.showLosePanel()
+
+            console.log(`gamelose!`)
+            MusicManager.getInstance().playLoseEffect()
+            return
         }
     }
 

@@ -3,5 +3,13 @@ export enum UIType {
     LevelInfo,
     LevelSelect,
     StartMenu,
-    LossPanel,
+    WinPanel,
+    LosePanel,
+}
+
+export enum MusicResUrl {
+    Bgm = 'music/musicBgm',
+    Click  = 'music/musicClick',
+    Lose = 'music/musicLose',
+    Win = 'music/musicWin'
 }
