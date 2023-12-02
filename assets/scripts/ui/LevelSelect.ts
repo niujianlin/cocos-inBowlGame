@@ -61,8 +61,9 @@ export default class LevelSelect extends UIBase {
             button.on(TOUCH_END, () => {
                 Util.clickUpTween(button, () => {
                     const level = index + 1
-                    console.log(level)
-                    uiManager.gameStart()
+                    //console.log(level)
+                    // 关卡输入
+                    uiManager.gameStart(level)
                 })
             }, this)
 

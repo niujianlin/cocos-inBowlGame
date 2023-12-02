@@ -40,7 +40,7 @@ export default class StartMenu extends UIBase {
         this.startButton.on(TOUCH_END, () => {
             console.log('click up')
             Util.clickUpTween(this.startButton, ()=> {
-                uiManager.gameStart()
+                uiManager.gameStart(1) // 默认第一关开始
             })
 
         }, this)

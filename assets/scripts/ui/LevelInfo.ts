@@ -10,16 +10,17 @@ export default class LevelInfo extends UIBase {
 
     onLoad () {
         super.onLoad()
-        console.log("执行onloadmei")
+        // console.log("执行onloadmei")
 
     }
 
     setLevelLabel(level: number) {
-        this.nowLevelLabel.string = `第${level}关`
+        const levelToStr = ['', '一', '二', '三', '四', '五', '六']
+        this.nowLevelLabel.string = `第${levelToStr[level]}关`
     }
 
     setItemsLabel(nowNum: number, allNum: number) {
-        this.nowItemsLabel.string = `第${nowNum}/${allNum}关`
+        this.nowItemsLabel.string = `${nowNum}/${allNum}`
     }
 
     // update (dt) {}

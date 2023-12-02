@@ -30,10 +30,10 @@ export default class UIManager extends cc.Component {
     /**
      * 点击开始游戏跳转到这里
      */
-    gameStart() {
-        // 跳转到开始页面显示的东西，一个是控制面板，一个是得分
+    gameStart(level: number) {
+        // 跳转到游戏页面显示的东西，一个是控制面板，一个是得分
         this.showUI([UIType.ControlPanel, UIType.LevelInfo])
-        StaticInstance.gameManager.gameStart()
+        StaticInstance.gameManager.gameStart(level)
         console.log("gamestart")
     }
 
@@ -44,6 +44,13 @@ export default class UIManager extends cc.Component {
 
     toStartMenu() {
         this.showUI([UIType.StartMenu])
+    }
+
+    setLevelInfo(level: number, nowItem: number, allNum: number) {
+        const levelInfo = this.uiMap.get(UIType.LevelInfo) as LevelInfo
+        levelInfo.setLevelLabel(level)
+        levelInfo.setItemsLabel(nowItem, allNum)
+        
     }
 
     showUI(showTypes: UIType[]) {
