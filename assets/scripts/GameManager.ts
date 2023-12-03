@@ -226,7 +226,14 @@ export default class GameManager extends cc.Component {
         if(!this.canAddFood) {
             this.isPlaying = false
             // 胜利面板
-            StaticInstance.uimanager.showWinPanel()
+            console.log("this.midConfig.level = ", this.midConfig.level)
+            if(this.midConfig.level === 6) {
+                // 模拟最后一关，胜利面板不出现下一关
+                StaticInstance.uimanager.showLastWinPanel()
+            }else {
+                StaticInstance.uimanager.showWinPanel()
+
+            }
             if( DataStorage.getUnLockLevel() < this.midConfig.level + 1 ) {
                 DataStorage.setUnLockLevel(this.midConfig.level + 1)
             }

@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        802.8055493081747,
+        575.9718559935347,
         0,
         0,
         0,
@@ -531,7 +531,7 @@
       "ctor": "Float64Array",
       "array": [
         -25.049,
-        -368.909,
+        -273.831,
         0,
         0,
         0,
@@ -623,7 +623,7 @@
     "tag": 0,
     "_density": 1,
     "_sensor": false,
-    "_friction": 0.2,
+    "_friction": 0.7,
     "_restitution": 0,
     "body": null,
     "_offset": {
@@ -979,6 +979,9 @@
     },
     "winPanelPrefab": {
       "__uuid__": "3d85a14f-bd71-456b-b912-4cd015d43c82"
+    },
+    "lastwinPanelPrefab": {
+      "__uuid__": "9a62ee24-dfd1-444b-8f6a-b73aeef18441"
     },
     "losePanelPrefab": {
       "__uuid__": "d995ebea-147f-41c4-8727-19885bda86c7"

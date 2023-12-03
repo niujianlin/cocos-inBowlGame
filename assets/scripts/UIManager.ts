@@ -1,6 +1,7 @@
 import { UIType } from "./Enum";
 import { StaticInstance } from "./StaticInstance";
 import ControlPanel from "./ui/ControlPanel";
+import LastWinPanel from "./ui/LastWinpanel";
 import LevelInfo from "./ui/LevelInfo";
 import LevelSelect from "./ui/LevelSelect";
 import LosePanel from "./ui/LosePanel";
@@ -18,6 +19,7 @@ export default class UIManager extends cc.Component {
     @property(cc.Prefab) controlPanelPrefab: cc.Prefab = undefined
     @property(cc.Prefab) levelInfoPrefab: cc.Prefab = undefined
     @property(cc.Prefab) winPanelPrefab: cc.Prefab = undefined
+    @property(cc.Prefab) lastwinPanelPrefab: cc.Prefab = undefined
     @property(cc.Prefab) losePanelPrefab: cc.Prefab = undefined
 
     private uiMap = new Map<UIType, UIBase>()
@@ -31,6 +33,7 @@ export default class UIManager extends cc.Component {
         this.initLevelInfoPanel()
         this.initWinPanel()
         this.initLosePanel()
+        this.initLastWinPanel()
 
         // loading
         this.node.children[0].destroy()
@@ -64,6 +67,10 @@ export default class UIManager extends cc.Component {
 
     showWinPanel() {
         this.showUI([UIType.WinPanel])
+    }
+
+    showLastWinPanel() {
+        this.showUI([UIType.LastWinPanel])
     }
 
     showLosePanel() {
@@ -161,6 +168,15 @@ export default class UIManager extends cc.Component {
         this.uiMap.set(UIType.WinPanel, comp)
     }
 
+    private initLastWinPanel() {
+        const node = cc.instantiate(this.lastwinPanelPrefab)
+        this.node.addChild(node)
+        node.setPosition(0, 0)
+        const comp = node.getComponent(LastWinPanel)
+        comp.init(this)
+        this.uiMap.set(UIType.LastWinPanel, comp)
+    }
+
     private initLosePanel() {
         const node = cc.instantiate(this.losePanelPrefab)
         this.node.addChild(node)
@@ -169,6 +185,8 @@ export default class UIManager extends cc.Component {
         comp.init(this)
         this.uiMap.set(UIType.LosePanel, comp)
     }
+
+
 
 
 

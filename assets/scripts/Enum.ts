@@ -4,6 +4,7 @@ export enum UIType {
     LevelSelect,
     StartMenu,
     WinPanel,
+    LastWinPanel,
     LosePanel,
 }
 
